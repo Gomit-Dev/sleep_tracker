@@ -72,12 +72,22 @@
       chatBox.scrollTop = chatBox.scrollHeight;
 
       // Fetch response from backend
+      try {
       const res = await fetch("https://sleep-tracker-nlqb.onrender.com/chat", {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({ message: userMessage }),
       });
+    } catch (err) {
+      chatBox.innerHTML += `
+        <div class="bot-msg text-left">
+          <div class="inline-block bg-red-700 px-4 py-2 rounded-xl">Error: ${err.message}</div>
+        </div>`;
+    }
 
+        if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
       const data = await res.json();
 
       // Display bot response
