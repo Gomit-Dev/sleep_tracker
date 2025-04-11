@@ -1,12 +1,15 @@
+import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import google.generativeai as genai
 
-# Configure your Gemini API key hereimport os
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
+# Configure your Gemini API key hereimport os
+
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 genai.configure(api_key=GEMINI_API_KEY)
+
 
 # Initialize the model
 model = genai.GenerativeModel("gemini-pro")
