@@ -12,7 +12,7 @@ genai.configure(api_key=GEMINI_API_KEY)
 
 
 # Initialize the model
-model = genai.GenerativeModel("gemini-pro")
+model = genai.GenerativeModel("gemini-1.5-flash")
 
 # Setup FastAPI app
 app = FastAPI()
