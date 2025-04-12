@@ -4,100 +4,164 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SleepTracker Bot 🌙</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Quicksand', sans-serif;
-      background: linear-gradient(145deg, #0f172a, #1e293b);
-    }
-    .glass {
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    .bot-msg {
-      animation: fadeInLeft 0.5s ease forwards;
-    }
-    .user-msg {
-      animation: fadeInRight 0.5s ease forwards;
-    }
-    @keyframes fadeInLeft {
-      from { opacity: 0; transform: translateX(-20px); }
-      to { opacity: 1; transform: translateX(0); }
-    }
-    @keyframes fadeInRight {
-      from { opacity: 0; transform: translateX(20px); }
-      to { opacity: 1; transform: translateX(0); }
-    }
-  </style>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body class="min-h-screen flex items-center justify-center p-4 text-white">
+<body>
 
-  <div class="w-full max-w-2xl glass rounded-3xl shadow-2xl p-6 space-y-4">
-    <div class="text-center">
-      <h1 class="text-3xl font-bold">💤 SleepTracker AI</h1>
-      <p class="text-gray-300 text-sm">Your personalized sleep wellness assistant</p>
+  <div class="navbar">
+    <div class="logo">
+      😴SleepTracker
     </div>
-
-    <div id="chat-box" class="h-[400px] overflow-y-auto bg-gray-900 bg-opacity-40 rounded-xl p-4 space-y-3"></div>
-
-    <div class="flex mt-4">
-      <input id="user-input" type="text" placeholder="Ask something like 'How much should I sleep today?'" 
-             class="flex-1 p-3 bg-gray-700 text-white rounded-l-xl focus:outline-none" />
-      <button onclick="sendMessage()" 
-              class="bg-indigo-500 hover:bg-indigo-600 px-5 rounded-r-xl text-white transition-all duration-300">
-        Send
-      </button>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">Features</a>
+      <a href="contactus.html">Contact</a>
+    </nav>
+    <div class="controls">
+      <button onclick="toggleTheme()">🌓</button>
     </div>
   </div>
 
-  <script>
-    async function sendMessage() {
-      const input = document.getElementById("user-input");
-      const chatBox = document.getElementById("chat-box");
+  <div class="main-content">
+    <div class="left-section">
+      <div class="chart-wrapper">
+        <canvas id="caffeineChart"></canvas>
+        <div class="chart-label">Caffeine</div>
+      </div>
+      <div class="chart-wrapper">
+        <canvas id="screenTimeChart"></canvas>
+        <div class="chart-label">Screen Time</div>
+      </div>
+      <div class="chart-wrapper">
+        <canvas id="stressChart"></canvas>
+        <div class="chart-label">Stress</div>
+      </div>
+    </div>
 
-      const userMessage = input.value.trim();
+    <div class="chat-section">
+      <div class="header">
+        <h1>😴 SleepTracker AI</h1>
+        <p>Your AI wellness companion</p>
+      </div>
+      <div class="chat-box" id="chatBox"></div>
+      <div class="input-container">
+        <input type="text" id="inputField" placeholder="Ask me anything about your sleep..." />
+        <button onclick="sendMessage()">Send</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    &copy; 2025 SleepTracker. All rights reserved.
+  </div>
+
+  <script>
+    const chatBox = document.getElementById("chatBox");
+    const inputField = document.getElementById("inputField");
+
+    const ringData = JSON.parse(localStorage.getItem("ringData")) || {
+      caffeine: 40,
+      screen_time: 65,
+      stress: 50
+    };
+
+    const charts = {};
+
+    function createDonutChart(canvasId, label, value, color) {
+      const ctx = document.getElementById(canvasId).getContext('2d');
+      return new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: [label, ''],
+          datasets: [{
+            data: [value, 100 - value],
+            backgroundColor: [color, '#444'],
+            borderWidth: 0
+          }]
+        },
+        options: {
+          cutout: '70%',
+          plugins: {
+            legend: { display: false },
+            tooltip: { enabled: false }
+          }
+        }
+      });
+    }
+
+    function updateChart(chartId, value, label, color) {
+      value = Math.min(100, Math.max(0, value));
+      ringData[label.toLowerCase().replace(" ", "_")] = value;
+      localStorage.setItem("ringData", JSON.stringify(ringData));
+
+      if (charts[chartId]) {
+        charts[chartId].data.datasets[0].data = [value, 100 - value];
+        charts[chartId].update();
+      } else {
+        charts[chartId] = createDonutChart(chartId, label, value, color);
+      }
+    }
+
+    function handleKeywords(message) {
+      const msg = message.toLowerCase();
+      if (msg.includes("coffee") || msg.includes("caffeine")) updateChart('caffeineChart', 85, 'Caffeine', '#ff6b81');
+      if (msg.includes("phone") || msg.includes("screen")) updateChart('screenTimeChart', 75, 'Screen Time', '#4dabf7');
+      if (msg.includes("stress") || msg.includes("anxious")) updateChart('stressChart', 65, 'Stress', '#ffc107');
+    }
+
+    function addMessage(message, sender) {
+      const messageElement = document.createElement("div");
+      messageElement.classList.add("message", sender);
+      messageElement.textContent = message;
+      chatBox.appendChild(messageElement);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    async function sendMessage() {
+      const userMessage = inputField.value.trim();
       if (!userMessage) return;
 
-      // Display user message
-      chatBox.innerHTML += `
-        <div class="user-msg text-right">
-          <div class="inline-block bg-indigo-600 px-4 py-2 rounded-xl">${userMessage}</div>
-        </div>`;
-      input.value = "";
+      addMessage(userMessage, "user");
+      inputField.value = "";
 
-      // Scroll to bottom
-      chatBox.scrollTop = chatBox.scrollHeight;
+      handleKeywords(userMessage);
 
-      // Fetch response from backend
       try {
-      const res = await fetch("https://sleep-tracker-gvbn.onrender.com/chat", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({ message: userMessage }),
-      });
-    } catch (err) {
-      chatBox.innerHTML += `
-        <div class="bot-msg text-left">
-          <div class="inline-block bg-red-700 px-4 py-2 rounded-xl">Error: ${err.message}</div>
-        </div>`;
-    }
+        const response = await fetch("http://127.0.0.1:8000/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: userMessage }),
+        });
 
-        if (!res.ok) {
-        throw new Error(`HTTP error! status: ${res.status}`);
+        const data = await response.json();
+        const botReply = data.response || "⚠️ No response received.";
+        addMessage(botReply, "bot");
+
+        if (data.factors) {
+          if (data.factors.caffeine !== undefined) updateChart('caffeineChart', data.factors.caffeine, 'Caffeine', '#ff6b81');
+          if (data.factors.screen_time !== undefined) updateChart('screenTimeChart', data.factors.screen_time, 'Screen Time', '#4dabf7');
+          if (data.factors.stress !== undefined) updateChart('stressChart', data.factors.stress, 'Stress', '#ffc107');
+        }
+
+      } catch (error) {
+        console.error("Error talking to backend:", error);
+        addMessage("Something went wrong while talking to the bot 😓", "bot");
       }
-      const data = await res.json();
-
-      // Display bot response
-      chatBox.innerHTML += `
-        <div class="bot-msg text-left">
-          <div class="inline-block bg-gray-700 px-4 py-2 rounded-xl">${data.response}</div>
-        </div>`;
-
-      chatBox.scrollTop = chatBox.scrollHeight;
     }
+
+    function toggleTheme() {
+      document.body.classList.toggle("light");
+      localStorage.setItem("theme", document.body.classList.contains("light") ? "light" : "dark");
+    }
+
+    if (localStorage.getItem("theme") === "light") {
+      document.body.classList.add("light");
+    }
+
+    updateChart('caffeineChart', ringData.caffeine, 'Caffeine', '#ff6b81');
+    updateChart('screenTimeChart', ringData.screen_time, 'Screen Time', '#4dabf7');
+    updateChart('stressChart', ringData.stress, 'Stress', '#ffc107');
   </script>
 </body>
 </html>
