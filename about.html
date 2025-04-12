@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About Us - SleepTracker</title>
+
+  <!-- Load stored theme before Tailwind loads -->
+  <script>
+    if (localStorage.getItem('theme') === 'dark') {
+      document.documentElement.classList.add('dark');
+    }
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#6366f1', // Indigo
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-gray-100 text-gray-900 dark:bg-[#0e1629] dark:text-gray-200 transition duration-300">
+
+  <!-- Navbar -->
+  <header class="bg-white dark:bg-[#1e2b47] shadow-md sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+      <div class="text-xl font-bold text-primary">SleepTracker</div>
+      <nav class="space-x-6 hidden md:block">
+        <a href="index.html" class="text-gray-700 dark:text-gray-300 hover:text-primary transition">Home</a>
+        <a href="about.html" class="text-primary font-semibold">About</a>
+        <a href="contactus.html" class="text-gray-700 dark:text-gray-300 hover:text-primary transition">Contact</a>
+      </nav>
+      <button onclick="toggleTheme()" 
+              class="ml-4 bg-primary text-white px-3 py-2 rounded-md hover:bg-indigo-700 transition">
+        Toggle 🌙
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="max-w-5xl mx-auto px-6 py-16 text-center">
+    <h1 class="text-4xl font-extrabold mb-4">About SleepTracker</h1>
+    <p class="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+      We're on a mission to improve the world's sleep—one night at a time. SleepTracker uses intelligent tools, modern design, and smart AI to help you understand and enhance your sleep experience.
+    </p>
+  </section>
+
+  <!-- Features -->
+  <section class="bg-white dark:bg-[#1e2b47] py-16">
+    <div class="max-w-6xl mx-auto px-6 text-center">
+      <h2 class="text-3xl font-bold mb-10">Why SleepTracker?</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+        <div class="p-6 bg-gray-50 dark:bg-[#1f2937] rounded-lg shadow-md">
+          <div class="text-primary text-4xl mb-4">📊</div>
+          <h3 class="text-xl font-semibold mb-2">Smart Insights</h3>
+          <p class="text-gray-600 dark:text-gray-300">Real-time sleep analysis with visual charts to help you make sense of your sleep habits.</p>
+        </div>
+        <div class="p-6 bg-gray-50 dark:bg-[#1f2937] rounded-lg shadow-md">
+          <div class="text-primary text-4xl mb-4">💬</div>
+          <h3 class="text-xl font-semibold mb-2">Chat-Based AI</h3>
+          <p class="text-gray-600 dark:text-gray-300">Ask questions naturally and get advice on caffeine, screen time, stress, and more.</p>
+        </div>
+        <div class="p-6 bg-gray-50 dark:bg-[#1f2937] rounded-lg shadow-md">
+          <div class="text-primary text-4xl mb-4">🌙</div>
+          <h3 class="text-xl font-semibold mb-2">Personalized Tips</h3>
+          <p class="text-gray-600 dark:text-gray-300">Get daily suggestions tailored to your lifestyle for better sleep every night.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Our Journey -->
+  <section class="max-w-6xl mx-auto px-6 py-16">
+    <h2 class="text-3xl font-bold text-center mb-10">Our Journey</h2>
+    <div class="space-y-8 text-gray-700 dark:text-gray-300">
+      <div>
+        <h4 class="text-xl font-semibold">📌 April 2025 — Project Kickoff</h4>
+        <p>
+          SleepTracker is a personal project focused on helping users understand and improve their sleep patterns through a clean UI and smart analytics.
+          The development started in April 2025 with a focus on building a chatbot interface, visualizations like line charts and donut graphs,
+          and features to track and analyze sleep-influencing factors such as caffeine, stress, and screen time.
+        </p>
+      </div>
+      <div>
+        <h4 class="text-xl font-semibold">🔧 What We’re Working On</h4>
+        <p>
+          Currently, the focus is on integrating natural language date parsing (NLDP), making the bot more interactive,
+          and polishing the UI for a smooth light/dark mode experience. The Contact and About pages are being crafted with clean design,
+          modern icons, and smart responsiveness in mind.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Meet the Team -->
+  <section class="py-20 bg-gradient-to-b from-gray-100 to-white dark:from-[#1e2b47] dark:to-[#0e1629]">
+    <div class="max-w-6xl mx-auto px-6 text-center">
+      <h2 class="text-4xl font-bold text-gray-800 dark:text-white mb-4">About SleepTracker</h2>
+      <p class="text-gray-600 dark:text-gray-300 mb-12">
+        This is a project on enhancing sleep quality using AI. We started this work in April 2025 with the goal of developing a smart assistant that helps users track and improve their sleep habits through interactive chat, data visualization, and personalized recommendations.
+      </p>
+
+      <!-- Features -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+        <div class="bg-white dark:bg-[#1f2937] shadow-md rounded-lg p-6">
+          <h3 class="text-xl font-semibold text-blue-600 dark:text-blue-400 mb-2">AI Chat Assistant</h3>
+          <p class="text-gray-600 dark:text-gray-300">Chat with a smart assistant that understands your sleep-related questions and provides tailored advice.</p>
+        </div>
+        <div class="bg-white dark:bg-[#1f2937] shadow-md rounded-lg p-6">
+          <h3 class="text-xl font-semibold text-blue-600 dark:text-blue-400 mb-2">Insightful Visualizations</h3>
+          <p class="text-gray-600 dark:text-gray-300">Get a clear view of your sleep influencers like stress, caffeine, and screen time through donut charts.</p>
+        </div>
+        <div class="bg-white dark:bg-[#1f2937] shadow-md rounded-lg p-6">
+          <h3 class="text-xl font-semibold text-blue-600 dark:text-blue-400 mb-2">Smart Date Understanding</h3>
+          <p class="text-gray-600 dark:text-gray-300">Type naturally like "last Thursday I slept 6 hours" and see your data update in real time.</p>
+        </div>
+      </div>
+
+      <!-- Meet the Team -->
+      <h2 class="text-3xl font-bold text-gray-800 dark:text-white mb-10">Meet the Team</h2>
+      <div class="flex flex-col sm:flex-row justify-center items-center gap-8">
+        <!-- Left Member -->
+        <div class="w-72 bg-white dark:bg-[#1f2937] shadow-lg rounded-lg overflow-hidden text-center">
+          <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Team Member 1" class="w-32 h-32 object-cover rounded-full mx-auto mt-6">
+          <div class="p-4">
+            <h3 class="text-xl font-semibold text-gray-800 dark:text-white">Aanya Kapoor</h3>
+            <p class="text-gray-500 dark:text-gray-300">Frontend Developer</p>
+          </div>
+        </div>
+
+        <!-- Middle (Team Leader) Member - Bigger Card -->
+        <div class="w-80 sm:w-96 bg-blue-50 dark:bg-blue-900 shadow-xl rounded-xl overflow-hidden text-center transform scale-105">
+          <img src="gamma.jpg" alt="Team Leader" class="w-32 h-32 object-cover rounded-full mx-auto mt-6">
+          <div class="p-6">
+            <h3 class="text-2xl font-bold text-blue-700 dark:text-white">Gomit Saha (Team Leader)</h3>
+            <p class="text-blue-600 dark:text-blue-300">Project Lead & AI Integration</p>
+          </div>
+        </div>
+
+        <!-- Right Member -->
+        <div class="w-72 bg-white dark:bg-[#1f2937] shadow-lg rounded-lg overflow-hidden text-center">
+          <img src="https://randomuser.me/api/portraits/men/65.jpg" alt="Team Member 3" class="w-32 h-32 object-cover rounded-full mx-auto mt-6">
+          <div class="p-4">
+            <h3 class="text-xl font-semibold text-gray-800 dark:text-white">Malhotra</h3>
+            <p class="text-gray-500 dark:text-gray-300">Backend Developer</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-white dark:bg-[#1e2b47] py-6 text-center text-sm text-gray-500 dark:text-gray-400">
+    © 2025 SleepTracker. All rights reserved.
+  </footer>
+
+  <!-- Theme Toggle Script -->
+  <script>
+    function toggleTheme() {
+      const isDark = document.documentElement.classList.toggle('dark');
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    }
+  </script>
+</body>
+</html>
