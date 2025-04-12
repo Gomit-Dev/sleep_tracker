@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Us - SleepTracker</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#6a5acd'
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body class="bg-gray-100 dark:bg-[#0e1629] dark:text-white transition-colors duration-300">
+
+    <!-- Navbar -->
+    <header class="bg-white dark:bg-[#1e2b47] shadow-md sticky top-0 z-50">
+      <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+        <div class="text-xl font-bold text-primary">
+            😴 SleepTracker</div>
+        <nav class="space-x-6 hidden md:block">
+          <a href="index.html" class="text-gray-700 dark:text-gray-300 hover:text-primary transition">Home</a>
+          <a href="about.html" class="text-gray-700 dark:text-gray-300 hover:text-primary transition">About</a>
+          <a href="contactus.html" class="text-primary font-semibold">Contact</a>
+        </nav>
+        <!-- Theme Toggle -->
+        <button onclick="document.documentElement.classList.toggle('dark')" 
+                class="ml-4 bg-primary text-white px-3 py-2 rounded-md hover:bg-indigo-700 transition">
+          Toggle 🌙
+        </button>
+      </div>
+    </header>
+  
+
+  <!-- Contact Section -->
+  <section class="max-w-5xl mx-auto mt-12 px-6">
+    <h1 class="text-3xl font-bold text-center mb-8">Get in Touch</h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      <!-- Contact Info -->
+      <div>
+        <h2 class="text-xl font-semibold mb-4">Our Contact Info</h2>
+        <p class="flex items-center gap-3 mb-3"><i class="fas fa-map-marker-alt text-primary"></i>123 SleepTracker Lane, Dream City, DC</p>
+        <p class="flex items-center gap-3 mb-3"><i class="fas fa-phone text-primary"></i>+1 (123) 456-7890</p>
+        <p class="flex items-center gap-3 mb-3"><i class="fas fa-envelope text-primary"></i>contact@sleeptracker.com</p>
+        <p class="text-gray-600 dark:text-gray-300 mt-4">We’re here to help with any questions or feedback you might have!</p>
+      </div>
+
+      <!-- Button to open modal -->
+      <div class="text-center md:text-left">
+        <p class="mb-4 text-lg">Want to send us a message?</p>
+        <button onclick="document.getElementById('modal').classList.remove('hidden')" 
+                class="bg-primary text-white px-6 py-3 rounded-lg hover:bg-indigo-700 transition">
+          Open Contact Form
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal -->
+  <div id="modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center px-4">
+    <div class="bg-white dark:bg-[#1e2b47] p-6 rounded-lg w-full max-w-3xl relative shadow-xl">
+      <button onclick="document.getElementById('modal').classList.add('hidden')" 
+              class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-white text-xl">&times;</button>
+
+      <div>
+        <h2 class="text-2xl font-bold mb-4">Contact Us</h2>
+        <form>
+          <label class="block mt-2 font-medium">Name</label>
+          <input type="text" placeholder="Your Name" class="w-full mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary dark:bg-[#2d3956] dark:border-none"/>
+
+          <label class="block mt-4 font-medium">Email</label>
+          <input type="email" placeholder="Your Email" class="w-full mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary dark:bg-[#2d3956] dark:border-none"/>
+
+          <label class="block mt-4 font-medium">Message</label>
+          <textarea rows="4" placeholder="Your Message" class="w-full mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary dark:bg-[#2d3956] dark:border-none"></textarea>
+
+          <button type="submit" class="mt-6 w-full bg-primary text-white py-2 rounded-md hover:bg-indigo-700 transition">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Map Section at Bottom -->
+  <section class="max-w-5xl mx-auto mt-16 p-4">
+    <h2 class="text-xl font-semibold mb-4">Find Us Here</h2>
+    <iframe 
+      class="w-full h-[350px] rounded-lg shadow-md"
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.015457841795!2d-122.42067968468157!3d37.77852087975827!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8085808c1ed82741%3A0x4e9d4bb0c2d9b17f!2sDream%20City!5e0!3m2!1sen!2sus!4v1672368022064!5m2!1sen!2sus" 
+      allowfullscreen="" 
+      loading="lazy" 
+      referrerpolicy="no-referrer-when-downgrade"></iframe>
+  </section>
+
+  <!-- Footer -->
+  <footer class="text-center py-8 text-gray-500 text-sm mt-10">
+    &copy; 2025 SleepTracker. All rights reserved.
+  </footer>
+
+</body>
+</html>
